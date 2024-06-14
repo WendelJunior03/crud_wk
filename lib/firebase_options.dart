@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,15 +25,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -49,9 +40,18 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBBk2r_JeM4ILJQtH5qAaGBGYlgz0V9gk8',
+    appId: '1:30753103353:web:df7a3972a50c00866cf128',
+    messagingSenderId: '30753103353',
+    projectId: 'crud--flutter',
+    authDomain: 'crud--flutter.firebaseapp.com',
+    storageBucket: 'crud--flutter.appspot.com',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCaQ_HhKe77R9TKcciuHDd8xSrxbfjGo1k',
-    appId: '1:30753103353:android:b32b5ff6bc8f29e46cf128',
+    appId: '1:30753103353:android:46d87e56a2f2c7f06cf128',
     messagingSenderId: '30753103353',
     projectId: 'crud--flutter',
     storageBucket: 'crud--flutter.appspot.com',
@@ -59,11 +59,28 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyB3JGpHnVt7zW-wGpud6MwHwsVBH-KByZw',
-    appId: '1:30753103353:ios:e0384c5127379dc16cf128',
+    appId: '1:30753103353:ios:43c850fb0832dd706cf128',
     messagingSenderId: '30753103353',
     projectId: 'crud--flutter',
     storageBucket: 'crud--flutter.appspot.com',
-    iosBundleId: 'com.example.crudWk',
+    iosBundleId: 'com.example.flutterApplication1',
   );
 
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyB3JGpHnVt7zW-wGpud6MwHwsVBH-KByZw',
+    appId: '1:30753103353:ios:43c850fb0832dd706cf128',
+    messagingSenderId: '30753103353',
+    projectId: 'crud--flutter',
+    storageBucket: 'crud--flutter.appspot.com',
+    iosBundleId: 'com.example.flutterApplication1',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyBBk2r_JeM4ILJQtH5qAaGBGYlgz0V9gk8',
+    appId: '1:30753103353:web:d5f983f24e42d22b6cf128',
+    messagingSenderId: '30753103353',
+    projectId: 'crud--flutter',
+    authDomain: 'crud--flutter.firebaseapp.com',
+    storageBucket: 'crud--flutter.appspot.com',
+  );
 }

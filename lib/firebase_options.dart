@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'crud--flutter.appspot.com',
     iosBundleId: 'com.example.crudWk',
   );
+
 }

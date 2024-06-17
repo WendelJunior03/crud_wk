@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController textController = TextEditingController();
 
   // Open dialog box to add a note
-  void openNoteBox(BuildContext context) {
+  void openNoteBox({String? docID}) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -29,7 +29,14 @@ class _HomePageState extends State<HomePage> {
           ElevatedButton(
             onPressed: () {
               // Add a new note
-              FirestoreService().addNote(textController.text);
+              if(docID == null) {
+                FirestoreService().addNote(textController.text);
+              }
+              //update an existing note
+              else {
+                firestoreService.updateNote(docID, textController.text);
+              }
+              
               // Clear the text controller
               textController.clear();
               // Close the box
@@ -49,8 +56,8 @@ class _HomePageState extends State<HomePage> {
         title: const Text("CrudWK"),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => openNoteBox(context), // Call openNoteBox with context
-        child: const Icon(Icons.add),
+        onPressed: () => openNoteBox(), // Call openNoteBox with context
+        child: const Icon(Icons.add), 
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: firestoreService.getNotesStream(),
@@ -73,6 +80,10 @@ class _HomePageState extends State<HomePage> {
 
                 return ListTile(
                   title: Text(noteText),
+                  trailing: IconButton(
+                    onPressed: () => openNoteBox(docID: docID),
+                    icon: const Icon(Icons.settings),
+                  ),
                 );
               },
             );

@@ -20,29 +20,29 @@ class _HomePageState extends State<HomePage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Add Note'),
+        title: const Text('Add Note'),
         content: TextField(
-          decoration: InputDecoration(hintText: 'Enter your note'),
+          decoration: const InputDecoration(hintText: 'Enter your note'),
           controller: textController,
         ),
         actions: [
           ElevatedButton(
             onPressed: () {
               // Add a new note
-              if(docID == null) {
+              if (docID == null) {
                 FirestoreService().addNote(textController.text);
               }
               //update an existing note
               else {
                 firestoreService.updateNote(docID, textController.text);
               }
-              
+
               // Clear the text controller
               textController.clear();
               // Close the box
               Navigator.pop(context);
             },
-            child: Text("Add"),
+            child: const Text("Add"),
           ),
         ],
       ),
@@ -54,10 +54,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("CrudWK"),
+        backgroundColor: Colors.amber,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => openNoteBox(), // Call openNoteBox with context
-        child: const Icon(Icons.add), 
+        child: const Icon(Icons.add),
+        backgroundColor: Colors.amber,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: firestoreService.getNotesStream(),
@@ -74,21 +76,32 @@ class _HomePageState extends State<HomePage> {
                 String docID = document.id;
 
                 // get note from each doc
-                Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                Map<String, dynamic> data =
+                    document.data() as Map<String, dynamic>;
 
                 String noteText = data['note'];
 
                 return ListTile(
-                  title: Text(noteText),
-                  trailing: IconButton(
-                    onPressed: () => openNoteBox(docID: docID),
-                    icon: const Icon(Icons.settings),
-                  ),
-                );
+                    title: Text(noteText),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Update button
+                        IconButton(
+                          onPressed: () => openNoteBox(docID: docID),
+                          icon: const Icon(Icons.settings),
+                        ),
+                        // Delete button
+                        IconButton(
+                          onPressed: () => firestoreService.deleteNote(docID),
+                          icon: const Icon(Icons.delete),
+                        ),
+                      ],
+                    ));
               },
             );
           }
-          // if there is no data return nothing 
+          // if there is no data return nothing
           else {
             return const Text("No notes..");
           }

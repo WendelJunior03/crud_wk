@@ -21,4 +21,5 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// stop time video: 7:22 to 13:22
+// stop time video: 10:10 to 13:22
+

@@ -1,4 +1,4 @@
-package com.example.crud_wk
+package com.example.flutter_application_1
 
 import io.flutter.embedding.android.FlutterActivity
 
